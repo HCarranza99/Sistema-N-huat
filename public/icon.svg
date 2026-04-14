@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Background -->
+  <rect width="512" height="512" rx="96" fill="#2D6A4F"/>
+  <!-- Subtle inner circle -->
+  <circle cx="256" cy="256" r="170" fill="#52B788" opacity="0.18"/>
+  <!-- Leaf body -->
+  <path fill="#D8F3DC"
+    d="M256 108
+       C 196 108 148 162 148 230
+       C 148 306 198 362 256 392
+       C 314 362 364 306 364 230
+       C 364 162 316 108 256 108 Z"/>
+  <!-- Main vein -->
+  <line x1="256" y1="385" x2="256" y2="148"
+        stroke="#2D6A4F" stroke-width="11"
+        stroke-linecap="round" opacity="0.45"/>
+  <!-- Left veins -->
+  <line x1="256" y1="216" x2="206" y2="190"
+        stroke="#2D6A4F" stroke-width="7"
+        stroke-linecap="round" opacity="0.4"/>
+  <line x1="256" y1="262" x2="198" y2="236"
+        stroke="#2D6A4F" stroke-width="7"
+        stroke-linecap="round" opacity="0.4"/>
+  <line x1="256" y1="308" x2="200" y2="282"
+        stroke="#2D6A4F" stroke-width="7"
+        stroke-linecap="round" opacity="0.4"/>
+  <!-- Right veins -->
+  <line x1="256" y1="240" x2="308" y2="212"
+        stroke="#2D6A4F" stroke-width="7"
+        stroke-linecap="round" opacity="0.4"/>
+  <line x1="256" y1="282" x2="312" y2="256"
+        stroke="#2D6A4F" stroke-width="7"
+        stroke-linecap="round" opacity="0.4"/>
+  <line x1="256" y1="326" x2="308" y2="302"
+        stroke="#2D6A4F" stroke-width="7"
+        stroke-linecap="round" opacity="0.4"/>
+  <!-- Stem -->
+  <line x1="256" y1="392" x2="256" y2="424"
+        stroke="#52B788" stroke-width="12"
+        stroke-linecap="round"/>
+</svg>
