@@ -7,9 +7,21 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Dependencies
 node_modules
+
+# Build output
 dist
 dist-ssr
+build
+
+# PWA / Vite plugin output
+dev-dist
+
+# Environment variables (contain Supabase keys)
+.env
+.env.local
+.env.*.local
 *.local
 
 # Editor directories and files
@@ -17,8 +29,20 @@ dist-ssr
 !.vscode/extensions.json
 .idea
 .DS_Store
+Thumbs.db
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+# OS
+.DS_Store
+
+# Coverage / tests
+coverage
+.nyc_output
+
+# Misc
+*.pem
+.cache
