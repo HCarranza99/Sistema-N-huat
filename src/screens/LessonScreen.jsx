@@ -9,6 +9,7 @@ import {
   completeLessonAttempt,
   logExerciseResponse,
 } from '../services/analytics'
+import { playCorrect, playWrong, playComplete } from '../lib/sounds'
 
 import ProgressBar from '../components/ui/ProgressBar'
 import LivesBar from '../components/ui/LivesBar'
@@ -47,6 +48,13 @@ export default function LessonScreen() {
     .slice(0, 5)
 
   const xpForType = (type) => GAME_CONFIG.itemTypes[type]?.xp ?? 10
+
+  // Hint lookup: nahuat word → spanish translation
+  const hints = Object.fromEntries(
+    lesson.items
+      .filter((it) => it.nahuat_word && it.spanish_translation)
+      .map((it) => [it.nahuat_word, it.spanish_translation])
+  )
 
   // ── PANTALLA DE INTRO ────────────────────────────────────────
   if (phase === 'intro') {
@@ -111,6 +119,7 @@ export default function LessonScreen() {
     if (nextIndex >= items.length) {
       const ratio = items.length > 0 ? finalScore.correct / items.length : 0
       const stars = ratio >= 0.9 ? 3 : ratio >= 0.7 ? 2 : 1
+      playComplete()
       recordPlay()
       completeLesson(lesson.id, ratio, finalScore.xp)
       completeLessonAttempt(attemptIdRef.current, lessonStartRef.current, ratio, stars, finalScore.xp)
@@ -132,6 +141,7 @@ export default function LessonScreen() {
 
   // ── Handlers para ejercicios con feedback modal ─────────────
   const handleCorrect = () => {
+    playCorrect()
     const xp = xpForType(current.type)
     const updated = { correct: score.correct + 1, xp: score.xp + xp }
     setScore(updated)
@@ -140,6 +150,7 @@ export default function LessonScreen() {
   }
 
   const handleWrong = () => {
+    playWrong()
     loseLife()
     logExerciseResponse(participantId, currentSessionId, attemptIdRef.current, current, false, exerciseStartRef.current)
     setFeedback('wrong')
@@ -157,6 +168,7 @@ export default function LessonScreen() {
 
   // ── Handlers para ejercicios que se auto-avanzan ────────────
   const handleFlashcard = (knew) => {
+    if (knew) playCorrect()
     const xp = xpForType('flashcard')
     const updated = knew
       ? { correct: score.correct + 1, xp: score.xp + xp }
@@ -167,6 +179,7 @@ export default function LessonScreen() {
   }
 
   const handleMatchingComplete = () => {
+    playCorrect()
     const xp = xpForType('matching')
     const updated = { correct: score.correct + 1, xp: score.xp + xp }
     logExerciseResponse(participantId, currentSessionId, attemptIdRef.current, current, true, exerciseStartRef.current)
@@ -199,6 +212,7 @@ export default function LessonScreen() {
         return (
           <BuildSentence
             item={current}
+            hints={hints}
             onCorrect={handleCorrect}
             onWrong={handleWrong}
           />

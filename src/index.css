@@ -1324,3 +1324,150 @@ button {
   color: var(--text-muted);
   max-width: 280px;
 }
+
+/* ═══════════════════════════════════════════════════════════
+   ANIMATIONS
+   ═══════════════════════════════════════════════════════════ */
+
+@keyframes feedback-slide-up {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+@keyframes bounce-in {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.08); }
+  70%  { transform: scale(0.96); }
+  100% { transform: scale(1); }
+}
+
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  20%     { transform: translateX(-8px); }
+  40%     { transform: translateX(8px); }
+  60%     { transform: translateX(-5px); }
+  80%     { transform: translateX(5px); }
+}
+
+@keyframes hint-pop {
+  from { opacity: 0; transform: translateX(-50%) translateY(4px) scale(0.9); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0)   scale(1);   }
+}
+
+/* Feedback bar slides up */
+.feedback-bar {
+  animation: feedback-slide-up 0.28s cubic-bezier(0.34, 1.4, 0.64, 1) both;
+}
+
+/* Multiple choice answer feedback */
+.option-correct { animation: bounce-in 0.4s ease both; }
+.option-wrong   { animation: shake    0.4s ease both; }
+
+/* BuildSentence sentence area feedback */
+.area-correct { animation: bounce-in 0.4s ease both; }
+.area-wrong   { animation: shake    0.4s ease both; }
+
+/* ── WORD HINT TOOLTIP ───────────────────────────────────── */
+
+.hint-wrapper {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hint-trigger {
+  border-bottom: 2px dotted var(--green);
+  cursor: pointer;
+  padding-bottom: 2px;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.hint-tooltip {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--text);
+  color: var(--card);
+  padding: 7px 14px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  white-space: nowrap;
+  z-index: 20;
+  pointer-events: none;
+  animation: hint-pop 0.15s ease both;
+}
+
+/* Arrow under tooltip */
+.hint-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: var(--text);
+}
+
+/* ── BUILD SENTENCE — hint badge ─────────────────────────── */
+
+.bank-token-wrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bank-token-row {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.bank-hint-btn {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid var(--green);
+  background: transparent;
+  color: var(--green);
+  font-size: 0.65rem;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.bank-hint-bubble {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--text);
+  color: var(--card);
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+  z-index: 20;
+  pointer-events: none;
+  animation: hint-pop 0.15s ease both;
+}
+
+.bank-hint-bubble::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: var(--text);
+}

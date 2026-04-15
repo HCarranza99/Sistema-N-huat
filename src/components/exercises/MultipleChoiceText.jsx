@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useTextToSpeech } from '../../hooks/useTextToSpeech'
+import WordHint from '../ui/WordHint'
 
 export default function MultipleChoiceText({ item, onCorrect, onWrong }) {
   const [selected, setSelected] = useState(null)
@@ -29,7 +30,9 @@ export default function MultipleChoiceText({ item, onCorrect, onWrong }) {
 
       <div className="word-display">
         <div className="word-with-speaker">
-          <h2 className="word-nahuat">{item.nahuat_word}</h2>
+          <h2 className="word-nahuat">
+            <WordHint word={item.nahuat_word} translation={item.spanish_translation} />
+          </h2>
           {isSupported && (
             <button
               className={`speak-btn ${isSpeaking ? 'speaking' : ''}`}

@@ -4,8 +4,33 @@ function shuffle(arr) {
   return [...arr].sort(() => Math.random() - 0.5)
 }
 
-export default function BuildSentence({ item, onCorrect, onWrong }) {
-  // Each word gets a unique key to handle duplicates safely
+function BankToken({ token, hint, onAdd }) {
+  const [showHint, setShowHint] = useState(false)
+
+  return (
+    <div className="bank-token-wrap">
+      {showHint && hint && (
+        <span className="bank-hint-bubble">{hint}</span>
+      )}
+      <div className="bank-token-row">
+        <button className="word-token" onClick={() => onAdd(token)}>
+          {token.w}
+        </button>
+        {hint && (
+          <button
+            className="bank-hint-btn"
+            onClick={() => setShowHint((v) => !v)}
+            aria-label={`Pista: ${hint}`}
+          >
+            ?
+          </button>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export default function BuildSentence({ item, hints = {}, onCorrect, onWrong }) {
   const [bank, setBank] = useState(() =>
     shuffle(item.word_bank.map((w, i) => ({ w, key: `bank-${i}` })))
   )
@@ -65,13 +90,12 @@ export default function BuildSentence({ item, onCorrect, onWrong }) {
 
       <div className="word-bank">
         {bank.map((token) => (
-          <button
+          <BankToken
             key={token.key}
-            className="word-token"
-            onClick={() => addWord(token)}
-          >
-            {token.w}
-          </button>
+            token={token}
+            hint={hints[token.w]}
+            onAdd={addWord}
+          />
         ))}
       </div>
 
