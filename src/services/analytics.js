@@ -55,8 +55,13 @@ export async function startSession(participantId) {
  * @param {string} sessionId - UUID de la sesión
  * @param {number} startedAtMs - Date.now() del momento de inicio
  */
+// Set para evitar llamadas duplicadas al mismo sessionId
+const endedSessions = new Set()
+
 export async function endSession(sessionId, startedAtMs) {
   if (!sessionId) return
+  if (endedSessions.has(sessionId)) return
+  endedSessions.add(sessionId)
   try {
     const endedAt = new Date().toISOString()
     const durationSeconds = Math.round((Date.now() - startedAtMs) / 1000)

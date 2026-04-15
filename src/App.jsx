@@ -34,16 +34,28 @@ export default function App() {
       if (!cancelled && sessionId) setSessionId(sessionId)
     })
 
-    const handleUnload = () => {
+    const closeSession = () => {
       endSession(sessionIdRef.current, sessionStartRef.current)
     }
-    window.addEventListener('beforeunload', handleUnload)
+
+    // beforeunload: funciona en desktop
+    window.addEventListener('beforeunload', closeSession)
+
+    // visibilitychange: funciona en móvil cuando el usuario cambia de app o cierra pestaña
+    const handleVisibility = () => {
+      if (document.visibilityState === 'hidden') closeSession()
+    }
+    document.addEventListener('visibilitychange', handleVisibility)
+
+    // pagehide: fallback para Safari iOS
+    window.addEventListener('pagehide', closeSession)
 
     return () => {
       cancelled = true
-      window.removeEventListener('beforeunload', handleUnload)
-      // También cierra la sesión si el componente se desmonta (HMR en dev)
-      endSession(sessionIdRef.current, sessionStartRef.current)
+      window.removeEventListener('beforeunload', closeSession)
+      document.removeEventListener('visibilitychange', handleVisibility)
+      window.removeEventListener('pagehide', closeSession)
+      closeSession()
     }
   }, [participantId]) // eslint-disable-line react-hooks/exhaustive-deps
 
