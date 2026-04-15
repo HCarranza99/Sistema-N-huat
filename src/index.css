@@ -787,12 +787,6 @@ button {
   padding: 20px 20px 28px;
   border-radius: 20px 20px 0 0;
   z-index: 50;
-  animation: slideUp 0.28s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-@keyframes slideUp {
-  from { transform: translateX(-50%) translateY(100%); }
-  to   { transform: translateX(-50%) translateY(0); }
 }
 
 .feedback-correct {
@@ -1330,8 +1324,8 @@ button {
    ═══════════════════════════════════════════════════════════ */
 
 @keyframes feedback-slide-up {
-  from { transform: translateY(100%); opacity: 0; }
-  to   { transform: translateY(0);    opacity: 1; }
+  from { transform: translateX(-50%) translateY(100%); opacity: 0; }
+  to   { transform: translateX(-50%) translateY(0);    opacity: 1; }
 }
 
 @keyframes bounce-in {
@@ -1470,4 +1464,106 @@ button {
   transform: translateX(-50%);
   border: 5px solid transparent;
   border-top-color: var(--text);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TOROGOZ MASCOT
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Keyframes ── */
+@keyframes toro-idle-body {
+  0%, 100% { transform: translateY(0);    }
+  50%       { transform: translateY(-5px); }
+}
+@keyframes toro-idle-tail {
+  0%, 100% { transform: rotate(0deg);    }
+  50%       { transform: rotate(12deg);  }
+}
+@keyframes toro-celebrate-body {
+  0%, 100% { transform: translateY(0) scale(1);      }
+  30%       { transform: translateY(-18px) scale(1.05); }
+  60%       { transform: translateY(-8px) scale(1);  }
+}
+@keyframes toro-celebrate-wings {
+  0%, 100% { transform: rotate(0deg);    }
+  30%       { transform: rotate(-30deg); }
+  60%       { transform: rotate(-10deg); }
+}
+@keyframes toro-sad-body {
+  0%, 100% { transform: translateY(0);   }
+  50%       { transform: translateY(4px); }
+}
+@keyframes toro-sad-eyes {
+  0%, 100% { transform: scaleY(1);    }
+  50%       { transform: scaleY(0.6); }
+}
+@keyframes toro-enter {
+  from { opacity: 0; transform: scale(0.6) translateY(10px); }
+  to   { opacity: 1; transform: scale(1)   translateY(0);    }
+}
+
+/* ── Base ── */
+.torogoz {
+  animation: toro-enter 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  display: block;
+}
+
+/* ── IDLE ── */
+.torogoz-idle .torogoz-body {
+  animation: toro-idle-body 2.4s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+.torogoz-idle .torogoz-tail-left,
+.torogoz-idle .torogoz-tail-right {
+  animation: toro-idle-tail 2.4s ease-in-out infinite;
+  transform-origin: 50% 0%;
+}
+.torogoz-idle .torogoz-tail-right {
+  animation-direction: alternate-reverse;
+}
+
+/* ── CELEBRATE ── */
+.torogoz-celebrate .torogoz-body {
+  animation: toro-celebrate-body 0.6s ease-in-out 2;
+  transform-origin: center bottom;
+}
+.torogoz-celebrate .torogoz-wing-left {
+  animation: toro-celebrate-wings 0.6s ease-in-out 2;
+  transform-origin: right center;
+}
+.torogoz-celebrate .torogoz-wing-right {
+  animation: toro-celebrate-wings 0.6s ease-in-out 2;
+  transform-origin: left center;
+  animation-direction: reverse;
+}
+.torogoz-celebrate .torogoz-tail-left,
+.torogoz-celebrate .torogoz-tail-right {
+  animation: toro-idle-tail 0.3s ease-in-out infinite alternate;
+  transform-origin: 50% 0%;
+}
+
+/* ── SAD ── */
+.torogoz-sad .torogoz-body {
+  animation: toro-sad-body 1.8s ease-in-out infinite;
+  transform-origin: center;
+}
+.torogoz-sad .torogoz-eyes {
+  animation: toro-sad-eyes 1.8s ease-in-out infinite;
+  transform-origin: center;
+}
+.torogoz-sad .torogoz-wing-left {
+  transform: rotate(20deg);
+  transform-origin: right center;
+}
+.torogoz-sad .torogoz-wing-right {
+  transform: rotate(-20deg);
+  transform-origin: left center;
+}
+
+/* ── Contenedor centrado ── */
+.torogoz-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 8px 0;
 }
