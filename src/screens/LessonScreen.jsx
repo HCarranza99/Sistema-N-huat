@@ -118,7 +118,7 @@ export default function LessonScreen() {
     const nextIndex = currentIndex + 1
     if (nextIndex >= items.length) {
       const ratio = items.length > 0 ? finalScore.correct / items.length : 0
-      const stars = ratio >= 0.9 ? 3 : ratio >= 0.7 ? 2 : 1
+      const stars = ratio >= 0.9 ? 3 : ratio >= 0.7 ? 2 : ratio >= 0.5 ? 1 : 0
       playComplete()
       recordPlay()
       completeLesson(lesson.id, ratio, finalScore.xp)

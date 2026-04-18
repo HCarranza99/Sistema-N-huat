@@ -61,9 +61,9 @@ const useGameStore = create(
           lessonProgress: {
             ...state.lessonProgress,
             [lessonId]: {
-              completed: score >= 0.7,
+              completed: score >= 0.5,
               score,
-              stars: score >= 0.9 ? 3 : score >= 0.7 ? 2 : 1,
+              stars: score >= 0.9 ? 3 : score >= 0.7 ? 2 : score >= 0.5 ? 1 : 0,
             },
           },
         })),

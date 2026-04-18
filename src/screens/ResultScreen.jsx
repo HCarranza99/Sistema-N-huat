@@ -15,7 +15,7 @@ export default function ResultScreen() {
   const { lessonId, lessonTitle, lessonIcon, score, xpEarned, totalItems } = state
   const pct = Math.round(score * 100)
   const stars = score >= 0.9 ? 3 : score >= 0.7 ? 2 : 1
-  const passed = score >= 0.7
+  const passed = score >= 0.5
 
   return (
     <div className="screen result-screen">

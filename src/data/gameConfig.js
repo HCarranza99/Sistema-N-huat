@@ -20,7 +20,7 @@ export const GAME_CONFIG = {
 
   // Progreso por lección
   lesson: {
-    minScoreToPass: 0.7,    // 70% correcto para pasar
+    minScoreToPass: 0.5,    // 50% correcto para pasar y desbloquear siguiente lección
     itemsPerSession: 10,    // items máximos por sesión (si la lección tiene más)
   },
 
