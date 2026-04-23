@@ -1,0 +1,20 @@
+/**
+ * Ítem de texto largo — textarea multilínea.
+ * answer = { valueText: string } o null
+ */
+export default function LongTextItem({ item, answer, onChange }) {
+  const text = answer?.valueText ?? ''
+
+  return (
+    <textarea
+      className="profile-input long-text-input"
+      placeholder={item.placeholder || 'Escribe tu respuesta'}
+      value={text}
+      onChange={(e) =>
+        onChange({ valueNumeric: null, valueText: e.target.value, valueOther: null })
+      }
+      rows={5}
+      maxLength={2000}
+    />
+  )
+}

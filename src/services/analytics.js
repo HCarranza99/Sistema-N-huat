@@ -171,3 +171,103 @@ export async function logExerciseResponse(
     // silencioso
   }
 }
+
+// ── Consentimiento ───────────────────────────────────────────────
+
+/**
+ * Hash simple (no criptográfico) del texto de consentimiento — sirve para
+ * demostrar que el participante aceptó esta versión específica del texto.
+ */
+function hashText(text) {
+  let h = 0
+  for (let i = 0; i < text.length; i++) {
+    h = ((h << 5) - h + text.charCodeAt(i)) | 0
+  }
+  return (h >>> 0).toString(16)
+}
+
+/**
+ * Registra que el participante aceptó el consentimiento.
+ * @param {string} participantId
+ * @param {string} consentVersion
+ * @param {string} consentText - texto mostrado, para calcular hash de auditoría
+ */
+export async function saveConsent(participantId, consentVersion, consentText) {
+  try {
+    await supabase.from('consent_records').insert({
+      participant_id: participantId,
+      consent_version: consentVersion,
+      consent_text_hash: hashText(consentText),
+    })
+  } catch {
+    // silencioso
+  }
+}
+
+// ── Respuestas de cuestionario ───────────────────────────────────
+
+/**
+ * Guarda la respuesta a un item de cuestionario (pretest o postest).
+ * Usa upsert sobre (participant_id, phase, item_code) para permitir que el
+ * participante corrija una respuesta antes de enviar.
+ *
+ * @param {string} participantId
+ * @param {string|null} sessionId
+ * @param {'pretest'|'posttest'} phase
+ * @param {string} itemCode
+ * @param {object} values - { valueNumeric?, valueText?, valueOther?, responseTimeMs? }
+ */
+export async function saveQuestionnaireResponse(
+  participantId,
+  sessionId,
+  phase,
+  itemCode,
+  { valueNumeric = null, valueText = null, valueOther = null, responseTimeMs = null } = {}
+) {
+  try {
+    await supabase.from('questionnaire_responses').upsert(
+      {
+        participant_id: participantId,
+        session_id: sessionId,
+        phase,
+        item_code: itemCode,
+        value_numeric: valueNumeric,
+        value_text: valueText,
+        value_other: valueOther,
+        response_time_ms: responseTimeMs,
+        answered_at: new Date().toISOString(),
+      },
+      { onConflict: 'participant_id,phase,item_code' }
+    )
+  } catch {
+    // silencioso
+  }
+}
+
+// ── Timeline de intervención ─────────────────────────────────────
+
+/**
+ * Upsert helper para intervention_timeline — un solo row por participante.
+ */
+async function upsertTimeline(participantId, patch) {
+  try {
+    await supabase.from('intervention_timeline').upsert(
+      { participant_id: participantId, ...patch },
+      { onConflict: 'participant_id' }
+    )
+  } catch {
+    // silencioso
+  }
+}
+
+export async function markPretestCompleted(participantId) {
+  await upsertTimeline(participantId, { pretest_completed_at: new Date().toISOString() })
+}
+
+export async function markPosttestUnlocked(participantId) {
+  await upsertTimeline(participantId, { posttest_unlocked_at: new Date().toISOString() })
+}
+
+export async function markPosttestCompleted(participantId) {
+  await upsertTimeline(participantId, { posttest_completed_at: new Date().toISOString() })
+}

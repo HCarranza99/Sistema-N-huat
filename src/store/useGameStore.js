@@ -11,21 +11,46 @@ const useGameStore = create(
       // ── Sesión activa (NO se persiste entre recargas) ─────────
       currentSessionId: null,      // UUID de la sesión en curso — ver partialize abajo
 
+      // ── Fases del estudio ─────────────────────────────────────
+      // 'consent'  → ConsentScreen (pantalla inicial)
+      // 'about'    → AboutScreen (contexto del náhuat + objetivo del estudio)
+      // 'practice' → PracticeScreen (ejemplo de escala Likert, no se guarda)
+      // 'pretest'  → PretestScreen
+      // 'playing'  → uso libre de la app con temporizador de 15 min
+      // 'posttest' → PosttestScreen (disparado al cumplirse los 15 min)
+      // 'free'     → app sin bloqueos (tras completar el postest)
+      studyPhase: 'consent',
+      consentAcceptedAt: null,     // ISO string — timestamp de aceptación
+      pretestCompletedAt: null,    // ISO string — arranca el contador de 15 min
+      posttestCompletedAt: null,   // ISO string — fin del protocolo
+
       // ── Gamificación ──────────────────────────────────────────
       xp: 0,
       lives: 3,
       livesLastLostAt: null,       // ISO timestamp — cuando las vidas llegaron a 0
       streak: 0,
       lastPlayedDate: null,        // 'YYYY-MM-DD' — último día que completó una lección
-      hasSeenOnboarding: false,
       lessonProgress: {},          // { [lessonId]: { completed, score, stars } }
 
       // ── Acciones de perfil ────────────────────────────────────
       setParticipant: (id, fullName) => set({ participantId: id, participantName: fullName }),
       setSessionId: (id) => set({ currentSessionId: id }),
 
-      // ── Onboarding ───────────────────────────────────────────
-      setOnboardingDone: () => set({ hasSeenOnboarding: true }),
+      // ── Acciones del estudio ─────────────────────────────────
+      acceptConsent: () =>
+        set({ studyPhase: 'about', consentAcceptedAt: new Date().toISOString() }),
+
+      finishAbout: () => set({ studyPhase: 'practice' }),
+
+      finishPractice: () => set({ studyPhase: 'pretest' }),
+
+      completePretest: () =>
+        set({ studyPhase: 'playing', pretestCompletedAt: new Date().toISOString() }),
+
+      triggerPosttest: () => set({ studyPhase: 'posttest' }),
+
+      completePosttest: () =>
+        set({ studyPhase: 'free', posttestCompletedAt: new Date().toISOString() }),
 
       // ── XP ───────────────────────────────────────────────────
       addXP: (amount) => set((state) => ({ xp: state.xp + amount })),
@@ -76,8 +101,7 @@ const useGameStore = create(
           streak: 0,
           lastPlayedDate: null,
           lessonProgress: {},
-          // participantId y participantName se mantienen
-          // hasSeenOnboarding se mantiene
+          // participantId, participantName y studyPhase se mantienen
         }),
     }),
     {

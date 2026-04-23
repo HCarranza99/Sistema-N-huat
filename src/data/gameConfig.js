@@ -9,6 +9,7 @@ export const GAME_CONFIG = {
     perfectLesson: 50,      // bonus por completar sin errores
     streakBonus: 5,         // bonus por racha de respuestas correctas
     streakThreshold: 3,     // racha mínima para activar bonus
+    perLevel: 500,          // XP necesaria por nivel
   },
 
   // Sistema de vidas (corazones)

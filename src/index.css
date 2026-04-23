@@ -72,30 +72,49 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 20px 16px;
-  background: var(--green);
+  padding: 24px 20px 32px;
+  background: linear-gradient(165deg, #1f4f3b 0%, var(--green) 55%, #3a8461 100%);
   color: white;
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
+  box-shadow: 0 6px 20px rgba(29, 73, 54, 0.25);
 }
 
 .home-logo {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
 }
 
-.logo-leaf { font-size: 2rem; }
+.torogoz-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  border-radius: 50%;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18), inset 0 0 0 3px rgba(255, 255, 255, 0.35);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.torogoz-badge .torogoz {
+  width: 100%;
+  height: auto;
+  transform: translate(-4%, 6%) scale(1.1);
+}
 
 .logo-title {
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-size: 1.6rem;
+  font-weight: 800;
   color: white;
   letter-spacing: -0.5px;
+  line-height: 1.05;
 }
 
 .logo-sub {
-  font-size: 0.72rem;
-  color: rgba(255,255,255,0.75);
-  margin-top: 1px;
+  font-size: 0.76rem;
+  color: rgba(255,255,255,0.8);
+  margin-top: 2px;
 }
 
 .xp-badge {
@@ -110,6 +129,101 @@ button {
 
 .xp-icon { font-size: 1rem; }
 .xp-count { font-weight: 700; font-size: 1rem; color: white; }
+
+/* ── LEVEL PROGRESS CARD ─────────────────────────────────── */
+
+.level-card {
+  margin: -20px 16px 0;
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 16px 18px 14px;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  z-index: 2;
+}
+
+.level-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.level-card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.level-card-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--text-muted);
+}
+
+.level-card-xp {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--green);
+  letter-spacing: -0.5px;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.level-card-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--green-pale);
+  border: 2px solid var(--green);
+  color: var(--green);
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.level-card-badge-label {
+  font-size: 0.58rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-bottom: 2px;
+}
+
+.level-card-badge-num {
+  font-size: 1.25rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.level-progress {
+  width: 100%;
+  height: 10px;
+  border-radius: 6px;
+  background: var(--border);
+  overflow: hidden;
+}
+
+.level-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--green-light), var(--green));
+  border-radius: 6px;
+  transition: width 0.4s ease;
+}
+
+.level-card-next {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
 
 .lesson-map {
   flex: 1;
@@ -1551,4 +1665,400 @@ button {
   padding: 4px 0 0;
   pointer-events: none;
   user-select: none;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TIMER BADGE (fase 'playing' — 15 min de intervención)
+   ═══════════════════════════════════════════════════════════ */
+
+.timer-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.2);
+  border: 1.5px solid rgba(255,255,255,0.35);
+  border-radius: 20px;
+  padding: 6px 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CONSENT SCREEN (pantalla inicial)
+   ═══════════════════════════════════════════════════════════ */
+
+.consent-screen {
+  padding: 36px 22px 28px;
+  background: var(--bg);
+}
+
+.consent-body {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.consent-box {
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  box-shadow: var(--shadow);
+}
+
+.consent-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.consent-text {
+  max-height: 180px;
+  overflow-y: auto;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.consent-text p {
+  margin-bottom: 8px;
+}
+
+.consent-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.88rem;
+  line-height: 1.4;
+  color: var(--text);
+}
+
+.consent-check input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--green);
+  flex-shrink: 0;
+  margin-top: 1px;
+  cursor: pointer;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   QUESTIONNAIRE — intro / outro slides
+   ═══════════════════════════════════════════════════════════ */
+
+.questionnaire-intro-screen {
+  padding: 48px 28px 40px;
+  justify-content: space-between;
+  background: var(--bg);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ABOUT SCREEN (slides sobre el náhuat + estudio)
+   ═══════════════════════════════════════════════════════════ */
+
+.about-screen {
+  padding: 48px 28px 40px;
+  justify-content: space-between;
+  background: var(--bg);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PRACTICE SCREEN (ejemplo Likert previo al pretest)
+   ═══════════════════════════════════════════════════════════ */
+
+.practice-screen {
+  padding: 36px 22px 28px;
+  justify-content: space-between;
+  background: var(--bg);
+}
+
+.practice-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.practice-card {
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 18px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.practice-hint {
+  font-size: 0.85rem;
+  color: var(--green);
+  font-weight: 600;
+  text-align: center;
+  background: var(--green-pale);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  animation: practice-hint-fade 0.3s ease;
+}
+
+@keyframes practice-hint-fade {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   QUESTIONNAIRE — runner (una pregunta por pantalla)
+   ═══════════════════════════════════════════════════════════ */
+
+.questionnaire-screen {
+  background: var(--bg);
+  justify-content: space-between;
+}
+
+.questionnaire-topbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px 8px;
+}
+
+.qnr-back {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  border-radius: 50%;
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  flex-shrink: 0;
+  transition: all var(--transition);
+}
+
+.qnr-back:not(:disabled):active {
+  transform: scale(0.94);
+}
+
+.qnr-back:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.qnr-count {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+  min-width: 48px;
+  text-align: right;
+}
+
+.questionnaire-body {
+  flex: 1;
+  padding: 8px 20px 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.questionnaire-actions {
+  padding: 16px 20px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.qnr-skip-hint {
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   QUESTION CARD (encabezado + área de input)
+   ═══════════════════════════════════════════════════════════ */
+
+.question-card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.question-header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.question-section-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--green);
+  margin-bottom: 2px;
+}
+
+.question-code {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.question-text {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.35;
+  letter-spacing: -0.2px;
+}
+
+.question-optional {
+  align-self: flex-start;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: var(--border);
+  border-radius: 6px;
+  padding: 2px 8px;
+  margin-top: 4px;
+}
+
+.question-input {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   LIKERT 1–5 (fila segmentada con etiqueta bajo cada número)
+   ═══════════════════════════════════════════════════════════ */
+
+.likert-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+}
+
+.likert-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 10px 2px 8px;
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  transition: all var(--transition);
+  box-shadow: 0 2px 0 var(--border);
+  min-height: 82px;
+}
+
+.likert-btn:not(:disabled):active {
+  transform: translateY(2px);
+  box-shadow: none;
+}
+
+.likert-num {
+  font-size: 1.2rem;
+  font-weight: 800;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.likert-label {
+  font-size: 0.64rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--text-muted);
+  text-align: center;
+  white-space: pre-line;
+  letter-spacing: 0.1px;
+}
+
+.likert-selected {
+  border-color: var(--green);
+  background: var(--green-pale);
+  color: var(--green);
+  box-shadow: 0 2px 0 var(--green);
+}
+
+.likert-selected .likert-label {
+  color: var(--green);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SINGLE CHOICE (stack vertical)
+   ═══════════════════════════════════════════════════════════ */
+
+.sc-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sc-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sc-btn {
+  padding: 14px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: 2px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  text-align: left;
+  transition: all var(--transition);
+  box-shadow: 0 2px 0 var(--border);
+  line-height: 1.35;
+}
+
+.sc-btn:not(:disabled):active {
+  transform: translateY(2px);
+  box-shadow: none;
+}
+
+.sc-selected {
+  border-color: var(--green);
+  background: var(--green-pale);
+  color: var(--green);
+  box-shadow: 0 2px 0 var(--green);
+}
+
+.sc-custom-input {
+  margin-top: 4px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TEXT INPUTS (reutilizan .profile-input)
+   ═══════════════════════════════════════════════════════════ */
+
+.short-text-input {
+  width: 100%;
+}
+
+.long-text-input {
+  width: 100%;
+  min-height: 120px;
+  resize: vertical;
+  font-family: inherit;
+  line-height: 1.5;
 }
