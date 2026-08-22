@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { ArrowLeft, BookOpen, ExternalLink, Library, Sprout } from 'lucide-react'
+import { ArrowLeft, BadgeCheck, BookOpen, ExternalLink, Library, Sprout } from 'lucide-react'
 
 import Torogoz from '../components/ui/Torogoz'
 import TorogozBadge from '../components/ui/TorogozBadge'
@@ -8,6 +8,7 @@ import {
   DICTIONARY_URL,
   PRIMARY_SOURCE,
   SECONDARY_SOURCES,
+  VALIDATION,
 } from '../data/credits'
 
 /**
@@ -129,6 +130,46 @@ export default function CreditsScreen() {
                 mucho más que lo que esta aplicación alcanza a enseñar.
               </p>
             )}
+          </div>
+        </section>
+
+        {/* ── Revisión por hablante ──
+            Va DESPUÉS de la fuente principal y ANTES de las otras obras: es lo
+            que separa a esta app de una que solo copió un diccionario. El texto
+            dice también lo que falta, para no dar a entender que se revisó
+            palabra por palabra. */}
+        <section className="surface-card overflow-hidden p-0">
+          <div className="flex items-center gap-3 border-b border-[#e3ded2] bg-[#f0fbf4] px-4 py-3">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-[#2fae7e] to-[#1f7a57] text-white shadow-[0_6px_16px_rgba(31,122,87,0.28)]">
+              <BadgeCheck className="h-5 w-5" />
+            </span>
+            <p className="text-[0.62rem] font-black uppercase tracking-[0.16em] text-[#1f7a57]">
+              Revisión del contenido
+            </p>
+          </div>
+
+          <div className="space-y-3 p-4">
+            <div>
+              <h2 className="text-xl font-black leading-tight tracking-tight text-[#17211d]">
+                {VALIDATION.name}
+              </h2>
+              <p className="mt-0.5 text-[0.82rem] font-semibold text-[#6d756e]">{VALIDATION.role}</p>
+            </div>
+
+            <p className="text-[0.86rem] font-medium leading-relaxed text-[#3d4a44]">
+              {VALIDATION.what}
+            </p>
+
+            <p className="border-l-2 border-[#52b788]/40 pl-3 text-[0.82rem] font-medium leading-snug text-[#6d756e]">
+              {VALIDATION.pendiente}
+            </p>
+
+            <dl className="flex flex-wrap gap-x-5 gap-y-1.5 border-t border-hairline pt-3 text-[0.78rem]">
+              <div className="flex gap-1.5">
+                <dt className="font-bold text-[#6d756e]">Revisado el:</dt>
+                <dd className="font-black text-[#17211d]">{VALIDATION.date}</dd>
+              </div>
+            </dl>
           </div>
         </section>
 
